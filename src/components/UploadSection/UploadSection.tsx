@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-const UploadSection = () => {
+const UploadSection = ({ onAnalysisComplete }) => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadMessage, setUploadMessage] = useState('');
   const [isUploading, setIsUploading] = useState(false);
 
-  const handleFileUpload = (file: File) => {
+  const handleFileUpload = async (file: File) => {
     setIsUploading(true);
     setUploadMessage('Uploading video...');
     
@@ -18,18 +18,38 @@ const UploadSection = () => {
       if (progress >= 100) {
         clearInterval(interval);
         setUploadMessage('Upload complete! Analyzing...');
-        // Here you would typically send the file to your server
+        
+        // Simulate API call
+        setTimeout(() => {
+          const analysisData = {
+            exitVelocity: 95.5,
+            hitDistance: 405,
+            launchAngle: 28.3
+          };
+          onAnalysisComplete(analysisData, URL.createObjectURL(file));
+          setIsUploading(false);
+        }, 2000);
       }
     }, 500);
   };
 
-  const handleUrlAnalysis = () => {
+  const handleUrlAnalysis = async () => {
     const url = (document.getElementById('videoUrl') as HTMLInputElement).value.trim();
     if (url) {
       setIsUploading(true);
       setUploadMessage('Analyzing video from URL...');
       setUploadProgress(100);
-      // Here you would typically send the URL to your server
+      
+      // Simulate API call
+      setTimeout(() => {
+        const analysisData = {
+          exitVelocity: 95.5,
+          hitDistance: 405,
+          launchAngle: 28.3
+        };
+        onAnalysisComplete(analysisData, url);
+        setIsUploading(false);
+      }, 2000);
     }
   };
 

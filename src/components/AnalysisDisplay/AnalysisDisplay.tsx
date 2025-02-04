@@ -1,40 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-const AnalysisDisplay = () => {
-  const [analysisData, setAnalysisData] = useState({
-    exitVelocity: '--',
-    hitDistance: '--',
-    launchAngle: '--'
-  });
-
+const AnalysisDisplay = ({ analysisData, videoUrl }) => {
   const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
-    // Simulate receiving analysis data
-    const simulatedData = {
-      exitVelocity: 95.5,
-      hitDistance: 405,
-      launchAngle: 28.3
-    };
-
-    const timer1 = setTimeout(() => {
-      setAnalysisData(prev => ({ ...prev, exitVelocity: simulatedData.exitVelocity }));
-    }, 500);
-
-    const timer2 = setTimeout(() => {
-      setAnalysisData(prev => ({ ...prev, hitDistance: simulatedData.hitDistance }));
-    }, 1000);
-
-    const timer3 = setTimeout(() => {
-      setAnalysisData(prev => ({ ...prev, launchAngle: simulatedData.launchAngle }));
-    }, 1500);
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
-    };
-  }, []);
+    if (videoUrl) {
+      setShowVideo(true);
+    }
+  }, [videoUrl]);
 
   return (
     <section id="analysisDisplay" className="py-16 bg-neutral-900">
@@ -48,6 +21,7 @@ const AnalysisDisplay = () => {
                 id="analysisVideo" 
                 className={showVideo ? '' : 'hidden'} 
                 controls
+                src={videoUrl}
               >
                 Your browser does not support the video tag.
               </video>
