@@ -139,7 +139,7 @@ Google Vertex AI is used to host and serve the trained machine learning model. I
 - Serverless components like Cloud Functions and Vertex AI endpoints are billed based on usage, minimizing costs during periods of low traffic.
 
 ### **3. Integration**
-- The seamless integration of Google Cloud services (Vertex AI, Cloud Functions, and optionally Cloud Run) simplifies the deployment and management of the entire pipeline.
+- The seamless integration of Google Cloud services (Vertex AI, Cloud Functions) simplifies the deployment and management of the entire pipeline.
 
 ### **4. Performance**
 - The hybrid CNN-LSTM architecture leverages the strengths of both spatial and temporal modeling, ensuring accurate predictions.
