@@ -5,6 +5,36 @@ const UploadSection = ({ onAnalysisComplete }) => {
   const [uploadMessage, setUploadMessage] = useState('');
   const [isUploading, setIsUploading] = useState(false);
 
+  const analyzeVideo = async (videoUrl: string) => {
+    try {
+      setUploadMessage('Analyzing video...');
+      setIsUploading(true);
+      setUploadProgress(50);
+      
+      const response = await fetch('https://us-central1-studious-saga-449903-f0.cloudfunctions.net/predict_video', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ video_url: videoUrl }),
+      });
+
+      const data = await response.json();
+      if (data.prediction && data.prediction.length > 0) {
+        const [exitVelocity, hitDistance, launchAngle] = data.prediction[0];
+        onAnalysisComplete({ exitVelocity, hitDistance, launchAngle }, videoUrl);
+      }
+
+      setUploadMessage('Analysis complete!');
+    } catch (error) {
+      setUploadMessage('Analysis failed. Please try again.');
+      console.error('Error analyzing video:', error);
+    } finally {
+      setIsUploading(false);
+      setUploadProgress(100);
+    }
+  };
+
   const handleFileUpload = async (file: File) => {
     setIsUploading(true);
     setUploadMessage('Uploading video...');
@@ -18,17 +48,7 @@ const UploadSection = ({ onAnalysisComplete }) => {
       if (progress >= 100) {
         clearInterval(interval);
         setUploadMessage('Upload complete! Analyzing...');
-        
-        // Simulate API call
-        setTimeout(() => {
-          const analysisData = {
-            exitVelocity: 95.5,
-            hitDistance: 405,
-            launchAngle: 28.3
-          };
-          onAnalysisComplete(analysisData, URL.createObjectURL(file));
-          setIsUploading(false);
-        }, 2000);
+        analyzeVideo(URL.createObjectURL(file));
       }
     }, 500);
   };
@@ -36,20 +56,7 @@ const UploadSection = ({ onAnalysisComplete }) => {
   const handleUrlAnalysis = async () => {
     const url = (document.getElementById('videoUrl') as HTMLInputElement).value.trim();
     if (url) {
-      setIsUploading(true);
-      setUploadMessage('Analyzing video from URL...');
-      setUploadProgress(100);
-      
-      // Simulate API call
-      setTimeout(() => {
-        const analysisData = {
-          exitVelocity: 95.5,
-          hitDistance: 405,
-          launchAngle: 28.3
-        };
-        onAnalysisComplete(analysisData, url);
-        setIsUploading(false);
-      }, 2000);
+      analyzeVideo(url);
     }
   };
 
