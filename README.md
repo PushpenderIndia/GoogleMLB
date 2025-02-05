@@ -107,21 +107,7 @@ Google Vertex AI is used to host and serve the trained machine learning model. I
   - Downloads and preprocesses the video to extract relevant frames.
   - Sends the preprocessed frames to the Vertex AI endpoint for prediction.
   - Returns the prediction results to the client.
-
-### **3. Google Cloud Storage (Optional)**
-- **Purpose**: Store intermediate video files during preprocessing.
-- **Key Features**:
-  - **Temporary Storage**: Videos are temporarily stored in a `temp_videos` directory before being deleted.
-  - **Efficient Cleanup**: Ensures minimal storage usage by removing files after processing.
-
-### **4. Google Cloud Run (Optional Extension)**
-- **Purpose**: Deploy the React frontend or additional backend services.
-- **Key Features**:
-  - **Containerized Deployment**: Allows deployment of containerized applications with minimal configuration.
-  - **Auto-Scaling**: Scales based on traffic, ensuring cost efficiency.
-- **Use Case**:
-  - If the React app is hosted on Cloud Run, it can seamlessly communicate with the Cloud Function and Vertex AI endpoint.
-
+    
 ---
 
 ## **System Workflow**
