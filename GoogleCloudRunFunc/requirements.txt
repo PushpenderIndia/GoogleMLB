@@ -1,0 +1,5 @@
+google-cloud-aiplatform
+opencv-python-headless
+numpy
+requests
+functions-framework
