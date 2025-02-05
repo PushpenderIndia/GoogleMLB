@@ -24,6 +24,8 @@ The model architecture is designed to handle sequential data (video frames) usin
 
 ![](/Images/ModelSchema.png)
 
+![](/Images/AccuracyML.png)
+
 ### **2. Temporal Modeling with LSTM**
 - **Input**: A sequence of 5 frames extracted around the ball-and-bat collision.
 - **Architecture**:
