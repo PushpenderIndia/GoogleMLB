@@ -9,6 +9,36 @@ The model architecture is designed to handle sequential data (video frames) usin
 
 ---
 
+## Tech Stack
+
+### **Frontend Development**
+The frontend is built using modern web development tools to ensure a responsive and user-friendly interface.
+
+#### **1. React.js**
+#### **2. TypeScript**
+#### **3. Tailwind CSS**
+---
+
+### **Backend Development**
+#### **4. Flask**
+#### **5. Google Cloud Functions**
+
+---
+
+### **Machine Learning**
+The core of the system relies on advanced machine learning techniques to analyze video frames and predict baseball metrics.
+
+#### **6. CNN (Convolutional Neural Network)**
+A pre-trained **MobileNetV2** CNN is used as a feature extractor to process spatial information from video frames.
+
+#### **7. LSTM (Long Short-Term Memory)**
+An LSTM network is used to model temporal dependencies between video frames, enabling accurate predictions of baseball metrics.
+
+#### **8. Google Vertex AI**
+Google Vertex AI is used to host and serve the trained machine learning model. It provides scalable and managed infrastructure for deploying and running predictions
+
+---
+
 ## **Model Architecture**
 
 ### **1. Feature Extraction with MobileNetV2**
