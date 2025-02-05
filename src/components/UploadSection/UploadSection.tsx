@@ -21,7 +21,7 @@ const UploadSection = ({ onAnalysisComplete }) => {
 
       const data = await response.json();
       if (data.prediction && data.prediction.length > 0) {
-        const [exitVelocity, hitDistance, launchAngle] = data.prediction[0];
+        const [exitVelocity, hitDistance, launchAngle] = data.prediction[0].map((value: number) => parseFloat(value.toFixed(2)));
         onAnalysisComplete({ exitVelocity, hitDistance, launchAngle }, videoUrl);
       }
 
