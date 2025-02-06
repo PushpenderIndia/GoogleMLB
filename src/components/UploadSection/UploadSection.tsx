@@ -61,30 +61,41 @@ const UploadSection = ({ onAnalysisComplete }) => {
   };
 
   const handleUrlAnalysis = async () => {
-    const url = (document.getElementById('videoUrl') as HTMLInputElement).value.trim();
-    if (url) {
-      const response = await fetch('https://us-central1-studious-saga-449903-f0.cloudfunctions.net/predict_video', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ video_url: url }),
-      });
+    try {
+      setUploadMessage('Analyzing video...');
+      setUploadProgress(50);
+      setIsUploading(true);
+      const url = (document.getElementById('videoUrl') as HTMLInputElement).value.trim();
+      if (url) {
+        const response = await fetch('https://us-central1-studious-saga-449903-f0.cloudfunctions.net/predict_video', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ video_url: url }),
+        });
 
-      if (!response.ok) {
-        setUploadMessage('Analysis failed. Please try again.');
-        console.error('Error analyzing video:', response.statusText);
-        return;
-      }
+        if (!response.ok) {
+          setUploadMessage('Analysis failed. Please try again.');
+          console.error('Error analyzing video:', response.statusText);
+          return;
+        }
 
-      const data = await response.json();
-      if (data.prediction && data.prediction.length > 0) {
-        const [exitVelocity, hitDistance, launchAngle] = data.prediction[0].map((value: number) =>
-          parseFloat(value.toFixed(2))
-        );
-        onAnalysisComplete({ exitVelocity, hitDistance, launchAngle }, url);
+        const data = await response.json();
+        if (data.prediction && data.prediction.length > 0) {
+          const [exitVelocity, hitDistance, launchAngle] = data.prediction[0].map((value: number) =>
+            parseFloat(value.toFixed(2))
+          );
+          onAnalysisComplete({ exitVelocity, hitDistance, launchAngle }, url);
+        }
+        setUploadMessage('Analysis complete!');
       }
-      setUploadMessage('Analysis complete!');
+    } catch (error) {
+      setUploadMessage('Analysis failed. Please try again.');
+      console.error('Error analyzing video:', error);
+    } finally {
+      setUploadProgress(100);
+      setIsUploading(false);
     }
   };
 
