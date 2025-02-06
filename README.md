@@ -41,6 +41,8 @@ An LSTM network is used to model temporal dependencies between video frames, ena
 #### **8. Google Vertex AI**
 Google Vertex AI is used to host and serve the trained machine learning model. It provides scalable and managed infrastructure for deploying and running predictions
 
+#### **9. YOLOv8 For Bat & Ball Collision Detection**
+
 ---
 
 ## **Model Architecture**
